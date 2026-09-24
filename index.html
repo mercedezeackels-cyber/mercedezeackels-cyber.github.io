@@ -1,16 +1,381 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>CHANGE ME</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Better Thought</title>
+
+  <style>
+    :root {
+      --purple: #762cff;
+      --blue: #247bff;
+      --light-blue: #e8f1ff;
+      --white: #ffffff;
+      --dark: #241044;
+      --muted: #685e7d;
+      --yellow: #ffd84d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: var(--dark);
+      background:
+        radial-gradient(circle at 10% 10%, #d9c7ff 0 8%, transparent 22%),
+        radial-gradient(circle at 90% 20%, #bde4ff 0 7%, transparent 20%),
+        linear-gradient(135deg, #f7f2ff, #eaf5ff);
+      overflow-x: hidden;
+    }
+
+    .sparkle {
+      position: fixed;
+      font-size: 2rem;
+      animation: float 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .sparkle.one {
+      top: 12%;
+      left: 8%;
+    }
+
+    .sparkle.two {
+      top: 25%;
+      right: 10%;
+      animation-delay: 1s;
+    }
+
+    .sparkle.three {
+      bottom: 12%;
+      left: 15%;
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-18px) rotate(12deg);
+      }
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: auto;
+      padding: 24px 6%;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--purple);
+    }
+
+    nav a {
+      margin-left: 20px;
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    nav a:hover {
+      color: var(--blue);
+    }
+
+    .hero {
+      max-width: 1000px;
+      margin: 40px auto 0;
+      padding: 60px 6% 40px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 9vw, 6.5rem);
+      line-height: 0.95;
+      color: var(--purple);
+      text-shadow: 4px 4px 0 #d6c5ff;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 24px auto;
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+
+    .main-button {
+      border: none;
+      border-radius: 999px;
+      padding: 17px 28px;
+      color: var(--white);
+      background: linear-gradient(100deg, var(--purple), var(--blue));
+      box-shadow: 0 10px 22px rgba(83, 52, 190, 0.3);
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 800;
+      transition: 0.25s ease;
+    }
+
+    .main-button:hover {
+      transform: translateY(-5px) rotate(-1deg);
+      box-shadow: 0 15px 28px rgba(83, 52, 190, 0.4);
+    }
+
+    .main-button:active {
+      transform: scale(0.96);
+    }
+
+    .affirmation-section {
+      max-width: 850px;
+      margin: 20px auto;
+      padding: 0 6%;
+    }
+
+    .affirmation-card {
+      position: relative;
+      padding: 42px 30px;
+      text-align: center;
+      background: var(--white);
+      border: 4px solid #d8c8ff;
+      border-radius: 30px;
+      box-shadow: 0 18px 45px rgba(71, 40, 150, 0.14);
+      transition: 0.3s ease;
+    }
+
+    .affirmation-card.pop {
+      animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0.96) rotate(-1deg);
+      }
+
+      60% {
+        transform: scale(1.03) rotate(1deg);
+      }
+
+      100% {
+        transform: scale(1) rotate(0);
+      }
+    }
+
+    .card-label {
+      margin-bottom: 15px;
+      color: var(--blue);
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    #affirmation {
+      min-height: 90px;
+      display: grid;
+      place-items: center;
+      color: var(--dark);
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .save-button {
+      margin-top: 25px;
+      border: 2px solid var(--purple);
+      border-radius: 999px;
+      padding: 11px 20px;
+      color: var(--purple);
+      background: transparent;
+      cursor: pointer;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .save-button:hover,
+    .save-button.saved {
+      color: var(--white);
+      background: var(--purple);
+    }
+
+    .message {
+      min-height: 24px;
+      margin-top: 12px;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .about {
+      max-width: 700px;
+      margin: 70px auto;
+      padding: 0 6%;
+      text-align: center;
+    }
+
+    .about h2 {
+      margin-bottom: 12px;
+      color: var(--purple);
+      font-size: 2rem;
+    }
+
+    .about p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 25px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 20px 6%;
+      }
+
+      nav a {
+        margin-left: 10px;
+        font-size: 0.85rem;
+      }
+
+      .hero {
+        margin-top: 20px;
+        padding-top: 45px;
+      }
+
+      .affirmation-card {
+        padding: 32px 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <!-- All content goes here -->
-  <div id="all-contents">
-     
+  <div class="sparkle one">✨</div>
+  <div class="sparkle two">⭐</div>
+  <div class="sparkle three">💜</div>
 
-  </div>
+  <header>
+    <div class="logo">A Better Thought ✨</div>
+
+    <nav>
+      <a href="#affirmations">Affirmations</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>A Better Thought</h1>
+      <p>
+        A little reminder that you are growing, capable, and already enough.
+      </p>
+
+      <button class="main-button" id="affirmationButton">
+        Give Me an Affirmation ✨
+      </button>
+    </section>
+
+    <section class="affirmation-section" id="affirmations">
+      <div class="affirmation-card" id="affirmationCard">
+        <div class="card-label">Your daily reminder</div>
+
+        <div id="affirmation">
+          You are capable of amazing things.
+        </div>
+
+        <button class="save-button" id="saveButton">
+          ♡ Save This Reminder
+        </button>
+
+        <div class="message" id="message"></div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <h2>About This Space 💙</h2>
+      <p>
+        A Better Thought is a cheerful place for confidence, growth,
+        self-kindness, and positive reminders whenever you need one.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    Made with positive thoughts 💜
+  </footer>
+
+  <script>
+    const affirmations = [
+      "You are capable of amazing things.",
+      "You deserve kindness, especially from yourself.",
+      "Your progress matters, even when it feels small.",
+      "You bring something special to the world.",
+      "You can take things one step at a time.",
+      "Your voice, ideas, and feelings matter.",
+      "You are becoming stronger every day.",
+      "You are allowed to be proud of yourself.",
+      "Good things can happen for you.",
+      "You are more powerful than your doubts."
+    ];
+
+    const affirmationButton = document.getElementById("affirmationButton");
+    const affirmationText = document.getElementById("affirmation");
+    const affirmationCard = document.getElementById("affirmationCard");
+    const saveButton = document.getElementById("saveButton");
+    const message = document.getElementById("message");
+
+    let currentAffirmation = affirmations[0];
+
+    affirmationButton.addEventListener("click", () => {
+      const availableAffirmations = affirmations.filter(
+        affirmation => affirmation !== currentAffirmation
+      );
+
+      currentAffirmation =
+        availableAffirmations[
+        Math.floor(Math.random() * availableAffirmations.length)
+        ];
+
+      affirmationText.textContent = currentAffirmation;
+
+      affirmationCard.classList.remove("pop");
+      void affirmationCard.offsetWidth;
+      affirmationCard.classList.add("pop");
+
+      saveButton.classList.remove("saved");
+      saveButton.textContent = "♡ Save This Reminder";
+      message.textContent = "";
+    });
+
+    saveButton.addEventListener("click", () => {
+      saveButton.classList.toggle("saved");
+
+      if (saveButton.classList.contains("saved")) {
+        saveButton.textContent = "♥ Saved!";
+        message.textContent = "Keep this thought close today.";
+      } else {
+        saveButton.textContent = "♡ Save This Reminder";
+        message.textContent = "";
+      }
+    });
+  </script>
 </body>
 
 </html>
